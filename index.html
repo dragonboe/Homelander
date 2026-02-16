@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spheel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --ctp-base: #1e1e2e;
+            --ctp-mantle: #181825;
+            --ctp-surface0: #313244;
+            --ctp-surface1: #45475a;
+            --ctp-overlay: #6c7086;
+            --ctp-text: #cdd6f4;
+            --ctp-subtext: #a6adc8;
+            --ctp-lavender: #b4befe;
+            --ctp-blue: #89b4fa;
+            --ctp-green: #a6e3a1;
+            --ctp-yellow: #f9e2af;
+            --ctp-peach: #fab387;
+            --ctp-mauve: #cba6f7;
+            --ctp-red: #f38ba8;
+            --ctp-sky: #89dceb;
+            --ctp-pink: #f5c2e7;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--ctp-base);
+            color: var(--ctp-text);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        /* Navigation */
+        nav {
+            background: var(--ctp-mantle);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--ctp-surface0);
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+        }
+        .nav-link {
+            padding: 0.4rem 0.7rem;
+            background: var(--ctp-surface0);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            color: var(--ctp-subtext);
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .nav-link:hover, .nav-link:focus, .nav-link.active {
+            background: var(--ctp-lavender);
+            color: var(--ctp-base);
+        }
+        
+        /* Trust Banner */
+        .trust-banner {
+            background: linear-gradient(90deg, var(--ctp-green), var(--ctp-sky));
+            padding: 0.5rem;
+            border-radius: 6px;
+            text-align: center;
+            color: var(--ctp-base);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .box {
+            background: var(--ctp-mantle);
+            border-radius: 8px;
+            padding: 0.85rem;
+            border: 1px solid var(--ctp-surface0);
+        }
+        .box.hidden { display: none; }
+        .box h3 {
+            font-size: 0.8rem;
+            color: var(--ctp-lavender);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .box ul {
+            list-style: none;
+        }
+        .box li {
+            padding: 0.4rem 0;
+            font-size: 0.75rem;
+            color: var(--ctp-subtext);
+            border-bottom: 1px solid var(--ctp-surface0);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .box li:last-child { border-bottom: none; }
+        .box a {
+            color: var(--ctp-text);
+            text-decoration: none;
+        }
+        .box a:hover { color: var(--ctp-blue); }
+        
+        .tags {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .tag {
+            font-size: 0.55rem;
+            padding: 0.12rem 0.35rem;
+            border-radius: 3px;
+        }
+        .tag.os { background: var(--ctp-green); color: var(--ctp-base); }
+        .tag.free { background: var(--ctp-sky); color: var(--ctp-base); }
+        .tag.freemium { background: var(--ctp-yellow); color: var(--ctp-base); }
+        .tag.verified {
+            background: var(--ctp-mauve);
+            color: var(--ctp-base);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.15rem;
+        }
+        
+        @media (max-width: 640px) {
+            .grid { grid-template-columns: 1fr 1fr; }
+            .nav-link { font-size: 0.65rem; padding: 0.35rem 0.5rem; }
+        }
+        @media (max-width: 400px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-links">
+            <button class="nav-link" data-filter="all">All</button>
+            <button class="nav-link" data-filter="productivity">Productivity</button>
+            <button class="nav-link" data-filter="development">Development</button>
+            <button class="nav-link" data-filter="design">Design</button>
+            <button class="nav-link" data-filter="media">Media</button>
+            <button class="nav-link" data-filter="security">Security</button>
+            <button class="nav-link" data-filter="chat">Chat</button>
+            <button class="nav-link" data-filter="files">Files</button>
+            <button class="nav-link" data-filter="linux">Linux</button>
+            <button class="nav-link" data-filter="utils">Utils</button>
+            <button class="nav-link" data-filter="windowslinux">Win on Linux</button>
+            <button class="nav-link" data-filter="scanners">Scanners</button>
+        </div>
+    </nav>
+    
+    <div class="trust-banner">
+        <i class="fas fa-shield-alt"></i> Community Trusted — Open Source & Free Apps <i class="fas fa-shield-alt"></i>
+    </div>
+
+    <div class="grid">
+        <div class="box" id="productivity">
+            <h3><i class="fas fa-briefcase"></i> Productivity</h3>
+            <ul>
+                <li><a href="#">LibreOffice</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">OnlyOffice</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Notion</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Obsidian</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="development">
+            <h3><i class="fas fa-code"></i> Development</h3>
+            <ul>
+                <li><a href="#">VS Code</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Git</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Postman</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Neovim</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="design">
+            <h3><i class="fas fa-paint-brush"></i> Design</h3>
+            <ul>
+                <li><a href="#">GIMP</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Inkscape</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Blender</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Figma</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="media">
+            <h3><i class="fas fa-play-circle"></i> Media</h3>
+            <ul>
+                <li><a href="#">VLC</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">OBS Studio</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Shotcut</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Audacity</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="security">
+            <h3><i class="fas fa-shield-alt"></i> Security</h3>
+            <ul>
+                <li><a href="#">Bitwarden</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">KeePass</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">ClamAV</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">1Password</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="chat">
+            <h3><i class="fas fa-comments"></i> Chat</h3>
+            <ul>
+                <li><a href="#">Signal</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Element</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Slack</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Telegram</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="files">
+            <h3><i class="fas fa-folder"></i> Files</h3>
+            <ul>
+                <li><a href="#">7-Zip</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Everything</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">FileZilla</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">WinSCP</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="linux">
+            <h3><i class="fas fa-terminal"></i> Linux</h3>
+            <ul>
+                <li><a href="#">Ubuntu</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Fedora</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Linux Mint</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Debian</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="utils">
+            <h3><i class="fas fa-tools"></i> Utils</h3>
+            <ul>
+                <li><a href="#">PowerToys</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">WizTree</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">AltDrag</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Sumatra PDF</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="windowslinux">
+            <h3><i class="fab fa-windows"></i> Win on Linux</h3>
+            <ul>
+                <li><a href="#">WinApps</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Winboat</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+        <div class="box" id="scanners">
+            <h3><i class="fas fa-search"></i> Site Scanners</h3>
+            <ul>
+                <li><a href="#">URLVoid</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">URLScan.io</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">Trend Micro</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">ScamAdviser</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li><a href="#">IsLegitSite</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.nav-link');
+        const boxes = document.querySelectorAll('.box');
+        let currentFilter = 'all';
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                if (filter === currentFilter && filter !== 'all') {
+                    currentFilter = 'all';
+                } else {
+                    currentFilter = filter;
+                }
+                
+                buttons.forEach(b => b.classList.remove('active'));
+                if (currentFilter !== 'all') {
+                    btn.classList.add('active');
+                }
+                
+                boxes.forEach(box => {
+                    if (currentFilter === 'all' || box.id === currentFilter) {
+                        box.classList.remove('hidden');
+                    } else {
+                        box.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
