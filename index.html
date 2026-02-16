@@ -7,295 +7,673 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --ctp-base: #1e1e2e;
-            --ctp-mantle: #181825;
-            --ctp-surface0: #313244;
-            --ctp-surface1: #45475a;
-            --ctp-overlay: #6c7086;
-            --ctp-text: #cdd6f4;
-            --ctp-subtext: #a6adc8;
-            --ctp-lavender: #b4befe;
-            --ctp-blue: #89b4fa;
-            --ctp-green: #a6e3a1;
-            --ctp-yellow: #f9e2af;
-            --ctp-peach: #fab387;
-            --ctp-mauve: #cba6f7;
-            --ctp-red: #f38ba8;
-            --ctp-sky: #89dceb;
-            --ctp-pink: #f5c2e7;
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(18, 18, 26, 0.8);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --text-primary: #ffffff;
+            --text-secondary: #8b8b9e;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --verified: #10b981;
+            --verified-bg: rgba(16, 185, 129, 0.15);
+            --os-color: #3b82f6;
+            --free-color: #8b5cf6;
+            --freemium-color: #f59e0b;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--ctp-base);
-            color: var(--ctp-text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 1rem;
+            padding: 1.5rem;
+            background-image: 
+                radial-gradient(ellipse at top, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
         }
-        
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .title-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .title-pill i {
+            font-size: 0.9rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-top: 0.75rem;
+        }
+
         /* Navigation */
         nav {
-            background: var(--ctp-mantle);
-            padding: 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border: 1px solid var(--ctp-surface0);
+            background: var(--bg-secondary);
+            padding: 0.6rem 0.75rem;
+            border-radius: 12px;
+            margin-bottom: 0.6rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
         }
+
         .nav-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.35rem;
             justify-content: center;
         }
+
         .nav-link {
             padding: 0.4rem 0.7rem;
-            background: var(--ctp-surface0);
+            background: transparent;
             border-radius: 6px;
             font-size: 0.7rem;
-            color: var(--ctp-subtext);
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             cursor: pointer;
-            border: none;
+            border: 1px solid transparent;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
         }
-        .nav-link:hover, .nav-link:focus, .nav-link.active {
-            background: var(--ctp-lavender);
-            color: var(--ctp-base);
+
+        .nav-link i {
+            font-size: 0.65rem;
         }
-        
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* License Filters */
+        .license-filters {
+            background: var(--bg-secondary);
+            padding: 0.5rem 0.75rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .license-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            justify-content: center;
+        }
+
+        .license-btn {
+            padding: 0.35rem 0.65rem;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .license-btn i {
+            font-size: 0.6rem;
+        }
+
+        .license-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .license-btn.active {
+            color: white;
+        }
+
+        .license-btn[data-license="all"].active {
+            background: var(--text-secondary);
+            border-color: var(--text-secondary);
+        }
+
+        .license-btn[data-license="os"].active {
+            background: var(--os-color);
+            border-color: var(--os-color);
+        }
+
+        .license-btn[data-license="free"].active {
+            background: var(--free-color);
+            border-color: var(--free-color);
+        }
+
+        .license-btn[data-license="freemium"].active {
+            background: var(--freemium-color);
+            border-color: var(--freemium-color);
+        }
+
         /* Trust Banner */
         .trust-banner {
-            background: linear-gradient(90deg, var(--ctp-green), var(--ctp-sky));
-            padding: 0.5rem;
-            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
             text-align: center;
-            color: var(--ctp-base);
+            color: var(--verified);
             font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
-        
+
         /* Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            max-width: 900px;
+            gap: 1rem;
+            max-width: 1100px;
             margin: 0 auto;
         }
+
         .box {
-            background: var(--ctp-mantle);
-            border-radius: 8px;
-            padding: 0.85rem;
-            border: 1px solid var(--ctp-surface0);
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.1rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
-        .box.hidden { display: none; }
+
+        .box:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .box.hidden {
+            display: none;
+        }
+
         .box h3 {
             font-size: 0.8rem;
-            color: var(--ctp-lavender);
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.85rem;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.45rem;
         }
+
+        .box h3 i {
+            color: var(--accent);
+            font-size: 0.75rem;
+        }
+
         .box ul {
             list-style: none;
         }
+
         .box li {
-            padding: 0.4rem 0;
+            padding: 0.55rem 0;
             font-size: 0.75rem;
-            color: var(--ctp-subtext);
-            border-bottom: 1px solid var(--ctp-surface0);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 0.5rem;
         }
-        .box li:last-child { border-bottom: none; }
+
+        .box li:last-child {
+            border-bottom: none;
+        }
+
+        .box li.hidden {
+            display: none;
+        }
+
+        .box li.expandable {
+            display: none;
+        }
+
+        .box li.expandable.visible {
+            display: flex;
+        }
+
         .box a {
-            color: var(--ctp-text);
+            color: var(--text-primary);
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
         }
-        .box a:hover { color: var(--ctp-blue); }
-        
+
+        .box a i {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        .box a:hover {
+            color: var(--accent);
+        }
+
+        .box a:hover i {
+            color: var(--accent);
+        }
+
         .tags {
             display: flex;
-            gap: 0.25rem;
+            gap: 0.3rem;
+            align-items: center;
+            flex-wrap: wrap;
         }
+
         .tag {
-            font-size: 0.55rem;
-            padding: 0.12rem 0.35rem;
-            border-radius: 3px;
+            font-size: 0.5rem;
+            padding: 0.18rem 0.4rem;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
         }
-        .tag.os { background: var(--ctp-green); color: var(--ctp-base); }
-        .tag.free { background: var(--ctp-sky); color: var(--ctp-base); }
-        .tag.freemium { background: var(--ctp-yellow); color: var(--ctp-base); }
-        .tag.verified {
-            background: var(--ctp-mauve);
-            color: var(--ctp-base);
+
+        .tag i {
+            font-size: 0.45rem;
+        }
+
+        .tag.os {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--os-color);
+        }
+
+        .tag.free {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--free-color);
+        }
+
+        .tag.freemium {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--freemium-color);
+        }
+
+        .verified-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.15rem;
+            gap: 0.2rem;
+            font-size: 0.5rem;
+            color: var(--verified);
+            background: var(--verified-bg);
+            padding: 0.18rem 0.4rem;
+            border-radius: 20px;
+            font-weight: 600;
+            white-space: nowrap;
         }
-        
-        @media (max-width: 640px) {
-            .grid { grid-template-columns: 1fr 1fr; }
-            .nav-link { font-size: 0.65rem; padding: 0.35rem 0.5rem; }
+
+        .verified-badge i {
+            font-size: 0.45rem;
         }
-        @media (max-width: 400px) {
-            .grid { grid-template-columns: 1fr; }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .view-more-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.65rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            opacity: 0.6;
+        }
+
+        .view-more-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            opacity: 0.9;
+        }
+
+        .view-more-btn i {
+            font-size: 0.55rem;
+            transition: transform 0.2s ease;
+        }
+
+        .view-more-btn.expanded i {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .title-pill {
+                font-size: 1rem;
+                padding: 0.5rem 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="title-pill">
+            <i class="fas fa-rocket"></i>
+            Homelander
+        </div>
+        <p>Curated collection of essential tools & apps</p>
+    </header>
+
     <nav>
         <div class="nav-links">
-            <button class="nav-link" data-filter="all">All</button>
-            <button class="nav-link" data-filter="productivity">Productivity</button>
-            <button class="nav-link" data-filter="development">Development</button>
-            <button class="nav-link" data-filter="design">Design</button>
-            <button class="nav-link" data-filter="media">Media</button>
-            <button class="nav-link" data-filter="security">Security</button>
-            <button class="nav-link" data-filter="chat">Chat</button>
-            <button class="nav-link" data-filter="files">Files</button>
-            <button class="nav-link" data-filter="linux">Linux</button>
-            <button class="nav-link" data-filter="utils">Utils</button>
-            <button class="nav-link" data-filter="windowslinux">Win on Linux</button>
-            <button class="nav-link" data-filter="scanners">Scanners</button>
+            <button class="nav-link active" data-filter="all"><i class="fas fa-globe"></i> All</button>
+            <button class="nav-link" data-filter="productivity"><i class="fas fa-briefcase"></i> Productivity</button>
+            <button class="nav-link" data-filter="development"><i class="fas fa-code"></i> Development</button>
+            <button class="nav-link" data-filter="design"><i class="fas fa-palette"></i> Design</button>
+            <button class="nav-link" data-filter="media"><i class="fas fa-play"></i> Media</button>
+            <button class="nav-link" data-filter="security"><i class="fas fa-shield-halved"></i> Security</button>
+            <button class="nav-link" data-filter="chat"><i class="fas fa-message"></i> Chat</button>
+            <button class="nav-link" data-filter="files"><i class="fas fa-folder-open"></i> Files</button>
+            <button class="nav-link" data-filter="utils"><i class="fas fa-screwdriver-wrench"></i> Utils</button>
         </div>
     </nav>
-    
+
+    <div class="license-filters">
+        <div class="license-buttons">
+            <button class="license-btn active" data-license="all"><i class="fas fa-layer-group"></i> All</button>
+            <button class="license-btn" data-license="os"><i class="fas fa-code-branch"></i> Open Source</button>
+            <button class="license-btn" data-license="free"><i class="fas fa-gift"></i> Free</button>
+            <button class="license-btn" data-license="freemium"><i class="fas fa-gem"></i> Freemium</button>
+        </div>
+    </div>
+
     <div class="trust-banner">
-        <i class="fas fa-shield-alt"></i> Community Trusted — Open Source & Free Apps <i class="fas fa-shield-alt"></i>
+        <i class="fas fa-certificate"></i>
+        <span>Community Trusted — All apps verified by emy</span>
     </div>
 
     <div class="grid">
         <div class="box" id="productivity">
             <h3><i class="fas fa-briefcase"></i> Productivity</h3>
             <ul>
-                <li><a href="#">LibreOffice</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">OnlyOffice</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Notion</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Obsidian</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> LibreOffice</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> OnlyOffice</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Notion</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="free"><a href="#"><i class="fas fa-link"></i> Obsidian</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Joplin</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Logseq</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Standard Notes</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="freemium" class="expandable"><a href="#"><i class="fas fa-link"></i> Todoist</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> SuperProductivity</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
+            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
         </div>
+
         <div class="box" id="development">
             <h3><i class="fas fa-code"></i> Development</h3>
             <ul>
-                <li><a href="#">VS Code</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Git</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Postman</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Neovim</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> VS Code</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Git</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Postman</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Neovim</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
         </div>
+
         <div class="box" id="design">
-            <h3><i class="fas fa-paint-brush"></i> Design</h3>
+            <h3><i class="fas fa-palette"></i> Design</h3>
             <ul>
-                <li><a href="#">GIMP</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Inkscape</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Blender</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Figma</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> GIMP</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Inkscape</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Blender</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Figma</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
         </div>
+
         <div class="box" id="media">
-            <h3><i class="fas fa-play-circle"></i> Media</h3>
+            <h3><i class="fas fa-play"></i> Media</h3>
             <ul>
-                <li><a href="#">VLC</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">OBS Studio</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Shotcut</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Audacity</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> VLC</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> OBS Studio</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Shotcut</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Audacity</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
         </div>
+
         <div class="box" id="security">
-            <h3><i class="fas fa-shield-alt"></i> Security</h3>
+            <h3><i class="fas fa-shield-halved"></i> Security</h3>
             <ul>
-                <li><a href="#">Bitwarden</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">KeePass</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">ClamAV</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">1Password</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Bitwarden</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> KeePass</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> ClamAV</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> 1Password</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> VeraCrypt</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> KeePassXC</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> OpenVPN</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> WireGuard</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> GnuPG</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Cryptomator</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
+            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
         </div>
+
         <div class="box" id="chat">
-            <h3><i class="fas fa-comments"></i> Chat</h3>
+            <h3><i class="fas fa-message"></i> Chat</h3>
             <ul>
-                <li><a href="#">Signal</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Element</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Slack</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Telegram</a><div class="tags"><span class="tag freemium">Freemium</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Signal</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Element</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Slack</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="free"><a href="#"><i class="fas fa-link"></i> Telegram</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
         </div>
+
         <div class="box" id="files">
-            <h3><i class="fas fa-folder"></i> Files</h3>
+            <h3><i class="fas fa-folder-open"></i> Files</h3>
             <ul>
-                <li><a href="#">7-Zip</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Everything</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">FileZilla</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">WinSCP</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> 7-Zip</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="free"><a href="#"><i class="fas fa-link"></i> Everything</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> FileZilla</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> WinSCP</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
         </div>
+
+        <div class="box" id="utils">
+            <h3><i class="fas fa-screwdriver-wrench"></i> Utils</h3>
+            <ul>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> PowerToys</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="free"><a href="#"><i class="fas fa-link"></i> WizTree</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="free"><a href="#"><i class="fas fa-link"></i> AltDrag</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Sumatra PDF</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> BleachBit</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> HWiNFO</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="free" class="expandable"><a href="#"><i class="fas fa-link"></i> CPU-Z</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="free" class="expandable"><a href="#"><i class="fas fa-link"></i> GPU-Z</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Bulk Rename</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> AutoHotkey</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+            </ul>
+            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
+        </div>
+
         <div class="box" id="linux">
             <h3><i class="fas fa-terminal"></i> Linux</h3>
             <ul>
-                <li><a href="#">Ubuntu</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Fedora</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Linux Mint</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Debian</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Ubuntu</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Fedora</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Linux Mint</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Debian</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Arch Linux</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> CachyOS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Pop!_OS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> EndeavourOS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> openSUSE Tumbleweed</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> NixOS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Garuda Linux</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
+                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Nobara</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
             </ul>
-        </div>
-        <div class="box" id="utils">
-            <h3><i class="fas fa-tools"></i> Utils</h3>
-            <ul>
-                <li><a href="#">PowerToys</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">WizTree</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">AltDrag</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Sumatra PDF</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-            </ul>
-        </div>
-        <div class="box" id="windowslinux">
-            <h3><i class="fab fa-windows"></i> Win on Linux</h3>
-            <ul>
-                <li><a href="#">WinApps</a><div class="tags"><span class="tag os">OS</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Winboat</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-            </ul>
-        </div>
-        <div class="box" id="scanners">
-            <h3><i class="fas fa-search"></i> Site Scanners</h3>
-            <ul>
-                <li><a href="#">URLVoid</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">URLScan.io</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">Trend Micro</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">ScamAdviser</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-                <li><a href="#">IsLegitSite</a><div class="tags"><span class="tag free">Free</span><span class="tag verified"><i class="fas fa-check"></i></span></div></li>
-            </ul>
+            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
         </div>
     </div>
 
     <script>
-        const buttons = document.querySelectorAll('.nav-link');
+        // Category filter
+        const categoryButtons = document.querySelectorAll('.nav-link');
         const boxes = document.querySelectorAll('.box');
-        let currentFilter = 'all';
+        let currentCategory = 'all';
 
-        buttons.forEach(btn => {
+        categoryButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const filter = btn.dataset.filter;
                 
-                if (filter === currentFilter && filter !== 'all') {
-                    currentFilter = 'all';
+                if (filter === currentCategory && filter !== 'all') {
+                    currentCategory = 'all';
                 } else {
-                    currentFilter = filter;
+                    currentCategory = filter;
                 }
                 
-                buttons.forEach(b => b.classList.remove('active'));
-                if (currentFilter !== 'all') {
-                    btn.classList.add('active');
+                categoryButtons.forEach(b => b.classList.remove('active'));
+                if (currentCategory !== 'all') {
+                    document.querySelector(`.nav-link[data-filter="${currentCategory}"]`).classList.add('active');
+                } else {
+                    document.querySelector('.nav-link[data-filter="all"]').classList.add('active');
                 }
                 
-                boxes.forEach(box => {
-                    if (currentFilter === 'all' || box.id === currentFilter) {
-                        box.classList.remove('hidden');
+                applyFilters();
+            });
+        });
+
+        // License filter
+        const licenseButtons = document.querySelectorAll('.license-btn');
+        let currentLicense = 'all';
+
+        licenseButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const license = btn.dataset.license;
+                
+                if (license === currentLicense && license !== 'all') {
+                    currentLicense = 'all';
+                } else {
+                    currentLicense = license;
+                }
+                
+                licenseButtons.forEach(b => b.classList.remove('active'));
+                if (currentLicense !== 'all') {
+                    document.querySelector(`.license-btn[data-license="${currentLicense}"]`).classList.add('active');
+                } else {
+                    document.querySelector('.license-btn[data-license="all"]').classList.add('active');
+                }
+                
+                applyFilters();
+            });
+        });
+
+        function applyFilters() {
+            boxes.forEach(box => {
+                // Check category filter
+                const categoryMatch = currentCategory === 'all' || box.id === currentCategory;
+                
+                // Check license filter on items
+                const items = box.querySelectorAll('li');
+                let hasVisibleItems = false;
+                
+                items.forEach(item => {
+                    const itemLicense = item.dataset.license;
+                    const licenseMatch = currentLicense === 'all' || itemLicense === currentLicense;
+                    
+                    if (licenseMatch) {
+                        item.classList.remove('hidden');
+                        hasVisibleItems = true;
                     } else {
-                        box.classList.add('hidden');
+                        item.classList.add('hidden');
                     }
                 });
+                
+                // Show/hide box based on category and whether it has visible items
+                if (categoryMatch && (currentLicense === 'all' || hasVisibleItems)) {
+                    box.classList.remove('hidden');
+                } else {
+                    box.classList.add('hidden');
+                }
+            });
+        }
+
+        // View More functionality
+        const viewMoreButtons = document.querySelectorAll('.view-more-btn');
+        
+        viewMoreButtons.forEach(btn => {
+            const box = btn.closest('.box');
+            const expandableItems = box.querySelectorAll('li.expandable');
+            
+            // Hide button if no expandable items
+            if (expandableItems.length === 0) {
+                btn.style.display = 'none';
+            }
+            
+            btn.addEventListener('click', () => {
+                const isExpanded = btn.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    // Collapse - hide expandable items
+                    expandableItems.forEach(item => {
+                        item.classList.remove('visible');
+                    });
+                    btn.classList.remove('expanded');
+                    btn.innerHTML = '<i class="fas fa-chevron-down"></i> View More';
+                } else {
+                    // Expand - show expandable items
+                    expandableItems.forEach(item => {
+                        item.classList.add('visible');
+                    });
+                    btn.classList.add('expanded');
+                    btn.innerHTML = '<i class="fas fa-chevron-up"></i> View Less';
+                }
             });
         });
     </script>
