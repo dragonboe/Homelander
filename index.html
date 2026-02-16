@@ -69,6 +69,20 @@
             margin-top: 0.75rem;
         }
 
+        .github-link {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            color: var(--text-primary);
+            transform: scale(1.1);
+        }
+
         /* Navigation */
         nav {
             background: var(--bg-secondary);
@@ -406,6 +420,9 @@
 </head>
 <body>
     <header>
+        <a href="https://github.com/dragonboe/Homelander" target="_blank" class="github-link" title="View on GitHub">
+            <i class="fab fa-github"></i>
+        </a>
         <div class="title-pill">
             <i class="fas fa-rocket"></i>
             Homelander
