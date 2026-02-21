@@ -291,8 +291,6 @@ body::after {
 .lic-btn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
 .lic-btn.active[data-license="all"] { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); }
 .lic-btn.active[data-license="os"] { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
-.lic-btn.active[data-license="free"] { background: var(--green-dim); color: var(--green); border-color: var(--green); }
-.lic-btn.active[data-license="freemium"] { background: var(--gold-dim); color: var(--gold); border-color: var(--gold); }
 
 .main {
   max-width: 1200px;
@@ -444,8 +442,6 @@ body::after {
 }
 
 .badge.os { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(78,168,222,0.2); }
-.badge.free { background: var(--green-dim); color: var(--green); border: 1px solid rgba(39,201,122,0.2); }
-.badge.freemium { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(245,166,35,0.2); }
 
 .tool-desc {
   font-size: 0.9rem;
@@ -535,8 +531,6 @@ body::after {
 
 .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
 .dot-os { background: var(--blue); }
-.dot-free { background: var(--green); }
-.dot-freemium { background: var(--gold); }
 
 footer {
   position: relative;
@@ -590,10 +584,10 @@ footer a:hover { text-decoration: underline; }
   </div>
   <p class="site-sub">Free &amp; Open Source Software Directory - Created by Emy</p>
   <div class="header-stats">
-    <div class="stat"><span class="stat-num" id="total-count">80+</span><span class="stat-label">Tools Listed</span></div>
+    <div class="stat"><span class="stat-num" id="total-count">75+</span><span class="stat-label">Tools Listed</span></div>
     <div class="stat"><span class="stat-num">9</span><span class="stat-label">Categories</span></div>
-    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Verified</span></div>
-    <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Free & Open</span></div>
+    <div class="stat"><span class="stat-num">Zero</span><span class="stat-label">Freemium</span></div>
   </div>
   <a class="github-btn" href="https://github.com/dragonboe/Homelander" target="_blank">
     <i class="fab fa-github"></i> View on GitHub
@@ -623,22 +617,18 @@ footer a:hover { text-decoration: underline; }
 <div class="license-bar">
   <button class="lic-btn active" data-license="all"><i class="fas fa-layer-group"></i> All</button>
   <button class="lic-btn" data-license="os"><i class="fas fa-code-branch"></i> Open Source</button>
-  <button class="lic-btn" data-license="free"><i class="fas fa-gift"></i> Freeware</button>
-  <button class="lic-btn" data-license="freemium"><i class="fas fa-gem"></i> Freemium</button>
 </div>
 
 <main class="main">
 
   <div class="trust-strip">
     <i class="fas fa-certificate"></i>
-    <span>All tools community-verified by emy - No spyware, no bloatware</span>
+    <span>All tools community-verified by emy - No spyware, no bloatware, no freemium</span>
     <i class="fas fa-certificate"></i>
   </div>
 
   <div class="legend">
     <div class="legend-item"><span class="legend-dot dot-os"></span> Open Source - Source code public, free to modify &amp; distribute</div>
-    <div class="legend-item"><span class="legend-dot dot-free"></span> Freeware - Free to use, source may be closed</div>
-    <div class="legend-item"><span class="legend-dot dot-freemium"></span> Freemium - Free tier available, paid upgrades exist</div>
   </div>
 
   <div class="section-label">Browsing all categories</div>
@@ -679,38 +669,6 @@ footer a:hover { text-decoration: underline; }
             <i class="fas fa-globe platform-icon" title="Web"></i>
           </div>
           <a class="visit-btn" href="https://www.onlyoffice.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="freemium" data-name="notion" data-desc="All-in-one workspace for notes wikis databases and project management.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://www.notion.so" target="_blank">Notion</a></div>
-          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
-        </div>
-        <div class="tool-desc">Flexible all-in-one workspace combining notes, databases, kanban boards, and wikis. Excellent for individuals and teams. Free plan is generous.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-            <i class="fas fa-globe platform-icon" title="Web"></i>
-            <i class="fab fa-android platform-icon" title="Android"></i>
-          </div>
-          <a class="visit-btn" href="https://www.notion.so" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="free" data-name="obsidian" data-desc="Markdown-based knowledge base that works on local files perfect for note-taking.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://obsidian.md" target="_blank">Obsidian</a></div>
-          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
-        </div>
-        <div class="tool-desc">Powerful knowledge base using plain Markdown files. Backlinks, graph view, and a rich plugin ecosystem make it ideal for a second brain setup.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-            <i class="fab fa-linux platform-icon" title="Linux"></i>
-            <i class="fab fa-android platform-icon" title="Android"></i>
-          </div>
-          <a class="visit-btn" href="https://obsidian.md" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
       <div class="tool-card" data-license="os" data-name="joplin" data-desc="Open source note-taking and to-do app with end-to-end encryption and sync.">
@@ -758,22 +716,6 @@ footer a:hover { text-decoration: underline; }
             <i class="fas fa-globe platform-icon" title="Web"></i>
           </div>
           <a class="visit-btn" href="https://standardnotes.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="freemium" data-name="todoist" data-desc="Elegant task manager with natural language input and cross-platform sync.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://todoist.com" target="_blank">Todoist</a></div>
-          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
-        </div>
-        <div class="tool-desc">Polished, powerful task manager with natural language due dates, labels, filters, and project views. Free tier handles most personal use cases well.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-            <i class="fab fa-linux platform-icon" title="Linux"></i>
-            <i class="fas fa-globe platform-icon" title="Web"></i>
-          </div>
-          <a class="visit-btn" href="https://todoist.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
       <div class="tool-card" data-license="os" data-name="super productivity" data-desc="To-do list and time-tracker with Jira and GitHub integration.">
@@ -848,22 +790,6 @@ footer a:hover { text-decoration: underline; }
           <a class="visit-btn" href="https://git-scm.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
-      <div class="tool-card" data-license="freemium" data-name="postman api" data-desc="API platform for building testing and documenting APIs.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://www.postman.com" target="_blank">Postman</a></div>
-          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
-        </div>
-        <div class="tool-desc">Industry-leading API client for testing REST, GraphQL, WebSocket, and more. Collections, environments, automated tests, and team collaboration.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-            <i class="fab fa-linux platform-icon" title="Linux"></i>
-            <i class="fas fa-globe platform-icon" title="Web"></i>
-          </div>
-          <a class="visit-btn" href="https://www.postman.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
       <div class="tool-card" data-license="os" data-name="hoppscotch api testing" data-desc="Lightweight open-source API testing tool a Postman alternative.">
         <div class="card-top">
           <div class="tool-name"><a href="https://hoppscotch.io" target="_blank">Hoppscotch</a></div>
@@ -908,20 +834,6 @@ footer a:hover { text-decoration: underline; }
             <i class="fab fa-linux platform-icon" title="Linux"></i>
           </div>
           <a class="visit-btn" href="https://wezfurlong.org/wezterm" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="free" data-name="fork git client" data-desc="Fast and friendly Git client for Mac and Windows.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://git-fork.com" target="_blank">Fork</a></div>
-          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
-        </div>
-        <div class="tool-desc">Best-in-class GUI Git client. Beautiful diff viewer, cherry-pick, rebase, interactive rebase, stash management. Much faster than GitHub Desktop.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-          </div>
-          <a class="visit-btn" href="https://git-fork.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
     </div>
@@ -977,21 +889,6 @@ footer a:hover { text-decoration: underline; }
             <i class="fab fa-linux platform-icon" title="Linux"></i>
           </div>
           <a class="visit-btn" href="https://www.blender.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="freemium" data-name="figma ui ux design" data-desc="Collaborative UI/UX design tool used by teams worldwide.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://www.figma.com" target="_blank">Figma</a></div>
-          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
-        </div>
-        <div class="tool-desc">Browser-based UI/UX design tool with real-time multiplayer collaboration. Component libraries, auto-layout, prototyping, and dev handoff. Free for personal use.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fas fa-globe platform-icon" title="Web"></i>
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-          </div>
-          <a class="visit-btn" href="https://www.figma.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
       <div class="tool-card" data-license="os" data-name="penpot design ui" data-desc="Open-source design tool self-hostable Figma alternative.">
@@ -1257,39 +1154,6 @@ footer a:hover { text-decoration: underline; }
           <a class="visit-btn" href="https://element.io" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
-      <div class="tool-card" data-license="free" data-name="telegram messaging" data-desc="Fast cloud-based messaging with bots channels and large group support.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://telegram.org" target="_blank">Telegram</a></div>
-          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
-        </div>
-        <div class="tool-desc">Lightning-fast cloud messaging with 200,000-member groups, bots, file sharing up to 4GB, and channels. Note: default chats aren't E2E encrypted.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-            <i class="fab fa-linux platform-icon" title="Linux"></i>
-            <i class="fas fa-globe platform-icon" title="Web"></i>
-            <i class="fab fa-android platform-icon" title="Android"></i>
-          </div>
-          <a class="visit-btn" href="https://telegram.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="freemium" data-name="slack team communication" data-desc="Team messaging platform with channels threads and integrations.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://slack.com" target="_blank">Slack</a></div>
-          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
-        </div>
-        <div class="tool-desc">Industry-standard team communication. Channels, threads, huddles, 2,400+ integrations, and workflow automation. Free tier has 90-day message history.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-apple platform-icon" title="macOS"></i>
-            <i class="fab fa-linux platform-icon" title="Linux"></i>
-            <i class="fas fa-globe platform-icon" title="Web"></i>
-          </div>
-          <a class="visit-btn" href="https://slack.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
       <div class="tool-card" data-license="os" data-name="thunderbird email client mozilla" data-desc="Feature-rich open-source email client by Mozilla.">
         <div class="card-top">
           <div class="tool-name"><a href="https://www.thunderbird.net" target="_blank">Thunderbird</a></div>
@@ -1303,6 +1167,114 @@ footer a:hover { text-decoration: underline; }
             <i class="fab fa-linux platform-icon" title="Linux"></i>
           </div>
           <a class="visit-btn" href="https://www.thunderbird.net" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="mattermost slack alternative team chat" data-desc="Open-source Slack alternative for secure team collaboration.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://mattermost.com" target="_blank">Mattermost</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Secure, self-hosted Slack alternative popular with developers. Channels, threads, playbooks, and integrations. Full control over your data and infrastructure.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://mattermost.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="zulip team chat organized threads" data-desc="Organized team chat with unique topic-based threading.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://zulip.com" target="_blank">Zulip</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Unique topic-based threading model keeps conversations organized. Used by major open-source projects. Self-hostable with full E2E encryption support.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://zulip.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="revolt discord alternative chat" data-desc="Privacy-focused Discord alternative with voice and text.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://revolt.chat" target="_blank">Revolt</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">User-first Discord alternative. No tracking, no data harvesting. Voice channels, text chat, custom emojis, and a modern UI. Self-hostable for full privacy.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://revolt.chat" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="jami p2p distributed messaging" data-desc="Peer-to-peer distributed communication platform.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://jami.net" target="_blank">Jami</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Fully distributed P2P messaging with no central server. Text, voice, video calls, and file sharing. Works over Tor. Maximum privacy with no account required.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://jami.net" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="briar offline mesh messaging" data-desc="Secure messaging that works without internet using mesh networking.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://briarproject.org" target="_blank">Briar</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Designed for activists and journalists. Works via Bluetooth, WiFi, or Tor when internet is unavailable. Messages sync when devices are nearby. No central servers.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-android platform-icon" title="Android"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://briarproject.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="mastodon decentralized social network" data-desc="Decentralized federated social network alternative to Twitter.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://joinmastodon.org" target="_blank">Mastodon</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Federated social network where anyone can run their own server. No algorithm, no ads, no tracking. Part of the Fediverse. Choose your community or start your own.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://joinmastodon.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="matrix synapse homeserver" data-desc="Open protocol for decentralized communication infrastructure.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://matrix.org" target="_blank">Matrix</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Open protocol for secure, decentralized communication. Run your own homeserver or use public ones. Bridges to Slack, Discord, Telegram, and more. Powers Element.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://matrix.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
     </div>
@@ -1327,19 +1299,6 @@ footer a:hover { text-decoration: underline; }
             <i class="fab fa-linux platform-icon" title="Linux"></i>
           </div>
           <a class="visit-btn" href="https://www.7-zip.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="free" data-name="everything search files windows" data-desc="Instant file search for Windows finds files as you type.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://www.voidtools.com" target="_blank">Everything</a></div>
-          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
-        </div>
-        <div class="tool-desc">Indexes every file on your Windows drive instantly. Search results appear as you type, no delays. Essential Windows productivity tool - replaces slow built-in search.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-          </div>
-          <a class="visit-btn" href="https://www.voidtools.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
       <div class="tool-card" data-license="os" data-name="filezilla ftp sftp" data-desc="FTP SFTP and FTPS client for transferring files to servers.">
@@ -1396,6 +1355,19 @@ footer a:hover { text-decoration: underline; }
       <span class="cat-count" data-countfor="utils"></span>
     </div>
     <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="homelander foss directory software" data-desc="Curated directory of free and open source software tools.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://github.com/dragonboe/Homelander" target="_blank">Homelander</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">A curated directory of free and open source software. Discover quality tools across productivity, development, design, and more. No ads, no tracking, just good software.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://github.com/dragonboe/Homelander" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
       <div class="tool-card" data-license="os" data-name="powertoys windows utilities" data-desc="Windows power utilities including FancyZones PowerToys Run and more.">
         <div class="card-top">
           <div class="tool-name"><a href="https://github.com/microsoft/PowerToys" target="_blank">PowerToys</a></div>
@@ -1407,19 +1379,6 @@ footer a:hover { text-decoration: underline; }
             <i class="fab fa-windows platform-icon" title="Windows"></i>
           </div>
           <a class="visit-btn" href="https://github.com/microsoft/PowerToys" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="free" data-name="wiztree disk usage analyzer" data-desc="Fastest disk usage analyzer for Windows similar to WinDirStat.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://www.diskanalyzer.com" target="_blank">WizTree</a></div>
-          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
-        </div>
-        <div class="tool-desc">Scans your entire drive in seconds using the MFT directly. Find out what's eating your disk space with a visual treemap. Way faster than WinDirStat.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-          </div>
-          <a class="visit-btn" href="https://www.diskanalyzer.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
       <div class="tool-card" data-license="os" data-name="sumatra pdf reader" data-desc="Fast minimal PDF viewer for Windows with ePub MOBI and CBZ support.">
@@ -1460,33 +1419,6 @@ footer a:hover { text-decoration: underline; }
             <i class="fab fa-windows platform-icon" title="Windows"></i>
           </div>
           <a class="visit-btn" href="https://www.autohotkey.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="free" data-name="cpu-z hardware info processor" data-desc="Detailed CPU memory and motherboard information tool.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank">CPU-Z</a></div>
-          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
-        </div>
-        <div class="tool-desc">The definitive hardware info tool. CPU name, speed, architecture, cache sizes, memory timings, motherboard details - all displayed in real time. No install needed.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-            <i class="fab fa-android platform-icon" title="Android"></i>
-          </div>
-          <a class="visit-btn" href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
-        </div>
-      </div>
-      <div class="tool-card" data-license="free" data-name="hwinfo hardware monitor temperature" data-desc="Real-time hardware monitoring for sensors temperatures and fan speeds.">
-        <div class="card-top">
-          <div class="tool-name"><a href="https://www.hwinfo.com" target="_blank">HWiNFO</a></div>
-          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
-        </div>
-        <div class="tool-desc">Comprehensive hardware diagnostics and real-time monitoring of sensors, temperatures, voltages, and fan speeds. The overclocker's best friend. Extremely detailed.</div>
-        <div class="card-footer">
-          <div class="platforms">
-            <i class="fab fa-windows platform-icon" title="Windows"></i>
-          </div>
-          <a class="visit-btn" href="https://www.hwinfo.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
         </div>
       </div>
       <div class="tool-card" data-license="os" data-name="flameshot screenshot annotation" data-desc="Powerful screenshot tool with annotation blur and upload capabilities.">
