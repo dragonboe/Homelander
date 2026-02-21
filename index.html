@@ -1,698 +1,1732 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homelander FOSS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: rgba(18, 18, 26, 0.8);
-            --border-color: rgba(255, 255, 255, 0.06);
-            --text-primary: #ffffff;
-            --text-secondary: #8b8b9e;
-            --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.3);
-            --verified: #10b981;
-            --verified-bg: rgba(16, 185, 129, 0.15);
-            --os-color: #3b82f6;
-            --free-color: #8b5cf6;
-            --freemium-color: #f59e0b;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homelander - Free & Open Source Software Directory</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #080b10;
+  --bg2: #0d1117;
+  --bg3: #131921;
+  --surface: rgba(19,25,33,0.9);
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8edf3;
+  --muted: #5a6478;
+  --muted2: #8b95a8;
+  --gold: #f5a623;
+  --gold-dim: rgba(245,166,35,0.12);
+  --gold-glow: rgba(245,166,35,0.25);
+  --green: #27c97a;
+  --green-dim: rgba(39,201,122,0.1);
+  --blue: #4ea8de;
+  --blue-dim: rgba(78,168,222,0.1);
+  --purple: #b77dff;
+  --purple-dim: rgba(183,125,255,0.1);
+  --red: #ff6b6b;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 1.5rem;
-            background-image: 
-                radial-gradient(ellipse at top, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
-        }
+html { scroll-behavior: smooth; }
 
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
+body {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-        .title-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: white;
-            box-shadow: 0 4px 20px var(--accent-glow);
-        }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .5;
+}
 
-        .title-pill i {
-            font-size: 0.9rem;
-        }
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(245,166,35,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
 
-        header p {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            margin-top: 0.75rem;
-        }
+.header {
+  position: relative;
+  z-index: 10;
+  padding: 4rem 2rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-        .github-link {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
 
-        .github-link:hover {
-            color: var(--text-primary);
-            transform: scale(1.1);
-        }
+.logo-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--gold) 0%, #e07c00 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #000;
+  box-shadow: 0 0 28px var(--gold-glow), 0 8px 20px rgba(0,0,0,0.4);
+  flex-shrink: 0;
+}
 
-        /* Navigation */
-        nav {
-            background: var(--bg-secondary);
-            padding: 0.6rem 0.75rem;
-            border-radius: 12px;
-            margin-bottom: 0.6rem;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-        }
+.site-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #fff 30%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
 
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            justify-content: center;
-        }
+.site-sub {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--muted2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
 
-        .nav-link {
-            padding: 0.4rem 0.7rem;
-            background: transparent;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
+.header-stats {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-        .nav-link i {
-            font-size: 0.65rem;
-        }
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
 
-        .nav-link:hover {
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
-        }
+.stat-num {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+}
 
-        .nav-link.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
+.stat-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
 
-        /* License Filters */
-        .license-filters {
-            background: var(--bg-secondary);
-            padding: 0.5rem 0.75rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-        }
+.github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  transition: all 0.2s;
+  margin-bottom: 2rem;
+}
 
-        .license-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-            justify-content: center;
-        }
+.github-btn:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-1px);
+}
 
-        .license-btn {
-            padding: 0.35rem 0.65rem;
-            background: transparent;
-            border-radius: 6px;
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
+.search-wrap {
+  width: 100%;
+  max-width: 580px;
+  position: relative;
+}
 
-        .license-btn i {
-            font-size: 0.6rem;
-        }
+.search-wrap i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 0.82rem;
+  pointer-events: none;
+}
 
-        .license-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-        }
+#search {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 0.95rem 1rem 0.95rem 2.75rem;
+  color: var(--text);
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.25s;
+  backdrop-filter: blur(10px);
+}
 
-        .license-btn.active {
-            color: white;
-        }
+#search::placeholder { color: var(--muted); }
 
-        .license-btn[data-license="all"].active {
-            background: var(--text-secondary);
-            border-color: var(--text-secondary);
-        }
+#search:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+  background: var(--bg3);
+}
 
-        .license-btn[data-license="os"].active {
-            background: var(--os-color);
-            border-color: var(--os-color);
-        }
+#search-count {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+}
 
-        .license-btn[data-license="free"].active {
-            background: var(--free-color);
-            border-color: var(--free-color);
-        }
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,11,16,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.65rem 1rem;
+}
 
-        .license-btn[data-license="freemium"].active {
-            background: var(--freemium-color);
-            border-color: var(--freemium-color);
-        }
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: center;
+  align-items: center;
+}
 
-        /* Trust Banner */
-        .trust-banner {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            padding: 0.6rem 1rem;
-            border-radius: 10px;
-            text-align: center;
-            color: var(--verified);
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin-bottom: 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--muted2);
+  font-family: 'Geist', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
 
-        /* Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+.nav-btn i { font-size: 0.7rem; }
+.nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.nav-btn.active { color: #000; background: var(--gold); border-color: var(--gold); font-weight: 600; }
 
-        .box {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 1.1rem;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
+.license-bar {
+  background: rgba(8,11,16,0.6);
+  border-bottom: 1px solid var(--border);
+  padding: 0.48rem 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 99;
+}
 
-        .box:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
+.lic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted2);
+  font-size: 0.72rem;
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.18s;
+}
 
-        .box.hidden {
-            display: none;
-        }
+.lic-btn:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.lic-btn.active[data-license="all"] { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2); }
+.lic-btn.active[data-license="os"] { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
+.lic-btn.active[data-license="free"] { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+.lic-btn.active[data-license="freemium"] { background: var(--gold-dim); color: var(--gold); border-color: var(--gold); }
 
-        .box h3 {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.45rem;
-        }
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+  position: relative;
+  z-index: 1;
+}
 
-        .box h3 i {
-            color: var(--accent);
-            font-size: 0.75rem;
-        }
+.section-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
 
-        .box ul {
-            list-style: none;
-        }
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
 
-        .box li {
-            padding: 0.55rem 0;
-            font-size: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
-        }
+.cat-section {
+  margin-bottom: 4rem;
+  animation: fadeInUp 0.4s ease both;
+}
 
-        .box li:last-child {
-            border-bottom: none;
-        }
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
 
-        .box li.hidden {
-            display: none;
-        }
+.cat-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
 
-        .box li.expandable {
-            display: none;
-        }
+.cat-name {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
 
-        .box li.expandable.visible {
-            display: flex;
-        }
+.cat-count {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-left: auto;
+}
 
-        .box a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1rem;
+}
 
-        .box a i {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-        }
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem;
+  transition: all 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
 
-        .box a:hover {
-            color: var(--accent);
-        }
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
-        .box a:hover i {
-            color: var(--accent);
-        }
+.tool-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
 
-        .tags {
-            display: flex;
-            gap: 0.3rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+.tool-card:hover::before { opacity: 1; }
+.tool-card.hidden { display: none; }
 
-        .tag {
-            font-size: 0.5rem;
-            padding: 0.18rem 0.4rem;
-            border-radius: 20px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            display: flex;
-            align-items: center;
-            gap: 0.2rem;
-        }
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
 
-        .tag i {
-            font-size: 0.45rem;
-        }
+.tool-name {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
 
-        .tag.os {
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--os-color);
-        }
+.tool-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s;
+}
 
-        .tag.free {
-            background: rgba(139, 92, 246, 0.15);
-            color: var(--free-color);
-        }
+.tool-name a:hover { color: var(--gold); }
 
-        .tag.freemium {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--freemium-color);
-        }
+.card-badges {
+  display: flex;
+  gap: 0.28rem;
+  align-items: center;
+  flex-shrink: 0;
+}
 
-        .verified-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.2rem;
-            font-size: 0.5rem;
-            color: var(--verified);
-            background: var(--verified-bg);
-            padding: 0.18rem 0.4rem;
-            border-radius: 20px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
 
-        .verified-badge i {
-            font-size: 0.45rem;
-        }
+.badge.os { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(78,168,222,0.2); }
+.badge.free { background: var(--green-dim); color: var(--green); border: 1px solid rgba(39,201,122,0.2); }
+.badge.freemium { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(245,166,35,0.2); }
 
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+.tool-desc {
+  font-size: 0.9rem;
+  color: var(--muted2);
+  line-height: 1.6;
+  font-weight: 400;
+}
 
-        .view-more-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.35rem;
-            padding: 0.5rem 0.75rem;
-            margin-top: 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            font-size: 0.65rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            width: 100%;
-            opacity: 0.6;
-        }
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.15rem;
+}
 
-        .view-more-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            opacity: 0.9;
-        }
+.platforms {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
 
-        .view-more-btn i {
-            font-size: 0.55rem;
-            transition: transform 0.2s ease;
-        }
+.platform-icon {
+  font-size: 0.75rem;
+  color: var(--muted);
+  transition: color 0.18s;
+}
 
-        .view-more-btn.expanded i {
-            transform: rotate(180deg);
-        }
+.platform-icon:hover { color: var(--text); }
 
-        @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .title-pill {
-                font-size: 1rem;
-                padding: 0.5rem 1.2rem;
-            }
-        }
-    </style>
+.visit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  color: var(--muted2);
+  font-size: 0.72rem;
+  font-family: 'Geist Mono', monospace;
+  text-decoration: none;
+  transition: all 0.18s;
+}
+
+.visit-btn:hover {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.trust-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
+  border-top: 1px solid rgba(39,201,122,0.15);
+  border-bottom: 1px solid rgba(39,201,122,0.15);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--green);
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0.6rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--muted2);
+  font-family: 'Geist Mono', monospace;
+}
+
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+.dot-os { background: var(--blue); }
+.dot-free { background: var(--green); }
+.dot-freemium { background: var(--gold); }
+
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+footer a { color: var(--gold); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cat-section:nth-child(1) { animation-delay: 0.04s; }
+.cat-section:nth-child(2) { animation-delay: 0.08s; }
+.cat-section:nth-child(3) { animation-delay: 0.12s; }
+.cat-section:nth-child(4) { animation-delay: 0.16s; }
+.cat-section:nth-child(5) { animation-delay: 0.20s; }
+.cat-section:nth-child(6) { animation-delay: 0.24s; }
+.cat-section:nth-child(7) { animation-delay: 0.28s; }
+.cat-section:nth-child(8) { animation-delay: 0.32s; }
+.cat-section:nth-child(9) { animation-delay: 0.36s; }
+
+@media (max-width: 768px) {
+  .site-title { font-size: 2.4rem; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .header { padding: 2.5rem 1rem 2rem; }
+}
+
+@media (max-width: 480px) {
+  .header-stats { gap: 1rem; }
+  .stat-num { font-size: 1.5rem; }
+  .site-title { font-size: 2rem; }
+}
+</style>
 </head>
 <body>
-    <header>
-        <a href="https://github.com/dragonboe/Homelander" target="_blank" class="github-link" title="View on GitHub">
-            <i class="fab fa-github"></i>
-        </a>
-        <div class="title-pill">
-            <i class="fas fa-rocket"></i>
-            Homelander
-        </div>
-        <p>Curated collection of essential tools & apps</p>
-    </header>
 
-    <nav>
-        <div class="nav-links">
-            <button class="nav-link active" data-filter="all"><i class="fas fa-globe"></i> All</button>
-            <button class="nav-link" data-filter="productivity"><i class="fas fa-briefcase"></i> Productivity</button>
-            <button class="nav-link" data-filter="development"><i class="fas fa-code"></i> Development</button>
-            <button class="nav-link" data-filter="design"><i class="fas fa-palette"></i> Design</button>
-            <button class="nav-link" data-filter="media"><i class="fas fa-play"></i> Media</button>
-            <button class="nav-link" data-filter="security"><i class="fas fa-shield-halved"></i> Security</button>
-            <button class="nav-link" data-filter="chat"><i class="fas fa-message"></i> Chat</button>
-            <button class="nav-link" data-filter="files"><i class="fas fa-folder-open"></i> Files</button>
-            <button class="nav-link" data-filter="utils"><i class="fas fa-screwdriver-wrench"></i> Utils</button>
-        </div>
-    </nav>
+<header class="header">
+  <div class="logo-row">
+    <div class="logo-icon"><i class="fas fa-layer-group"></i></div>
+    <h1 class="site-title">Homelander</h1>
+  </div>
+  <p class="site-sub">Free &amp; Open Source Software Directory - Created by Emy</p>
+  <div class="header-stats">
+    <div class="stat"><span class="stat-num" id="total-count">80+</span><span class="stat-label">Tools Listed</span></div>
+    <div class="stat"><span class="stat-num">9</span><span class="stat-label">Categories</span></div>
+    <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Verified</span></div>
+    <div class="stat"><span class="stat-num">Free</span><span class="stat-label">Always</span></div>
+  </div>
+  <a class="github-btn" href="https://github.com/dragonboe/Homelander" target="_blank">
+    <i class="fab fa-github"></i> View on GitHub
+  </a>
+  <div class="search-wrap">
+    <i class="fas fa-search"></i>
+    <input type="text" id="search" placeholder="Search tools, descriptions, categories…" autocomplete="off" spellcheck="false">
+    <span id="search-count"></span>
+  </div>
+</header>
 
-    <div class="license-filters">
-        <div class="license-buttons">
-            <button class="license-btn active" data-license="all"><i class="fas fa-layer-group"></i> All</button>
-            <button class="license-btn" data-license="os"><i class="fas fa-code-branch"></i> Open Source</button>
-            <button class="license-btn" data-license="free"><i class="fas fa-gift"></i> Free</button>
-            <button class="license-btn" data-license="freemium"><i class="fas fa-gem"></i> Freemium</button>
-        </div>
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-filter="all"><i class="fas fa-globe"></i> All</button>
+    <button class="nav-btn" data-filter="productivity"><i class="fas fa-briefcase"></i> Productivity</button>
+    <button class="nav-btn" data-filter="development"><i class="fas fa-code"></i> Development</button>
+    <button class="nav-btn" data-filter="design"><i class="fas fa-palette"></i> Design</button>
+    <button class="nav-btn" data-filter="media"><i class="fas fa-play"></i> Media</button>
+    <button class="nav-btn" data-filter="security"><i class="fas fa-shield-halved"></i> Security</button>
+    <button class="nav-btn" data-filter="chat"><i class="fas fa-message"></i> Communication</button>
+    <button class="nav-btn" data-filter="files"><i class="fas fa-folder-open"></i> Files</button>
+    <button class="nav-btn" data-filter="utils"><i class="fas fa-screwdriver-wrench"></i> Utilities</button>
+    <button class="nav-btn" data-filter="linux"><i class="fab fa-linux"></i> Linux Distros</button>
+  </div>
+</nav>
+
+<div class="license-bar">
+  <button class="lic-btn active" data-license="all"><i class="fas fa-layer-group"></i> All</button>
+  <button class="lic-btn" data-license="os"><i class="fas fa-code-branch"></i> Open Source</button>
+  <button class="lic-btn" data-license="free"><i class="fas fa-gift"></i> Freeware</button>
+  <button class="lic-btn" data-license="freemium"><i class="fas fa-gem"></i> Freemium</button>
+</div>
+
+<main class="main">
+
+  <div class="trust-strip">
+    <i class="fas fa-certificate"></i>
+    <span>All tools community-verified by emy - No spyware, no bloatware</span>
+    <i class="fas fa-certificate"></i>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot dot-os"></span> Open Source - Source code public, free to modify &amp; distribute</div>
+    <div class="legend-item"><span class="legend-dot dot-free"></span> Freeware - Free to use, source may be closed</div>
+    <div class="legend-item"><span class="legend-dot dot-freemium"></span> Freemium - Free tier available, paid upgrades exist</div>
+  </div>
+
+  <div class="section-label">Browsing all categories</div>
+
+  <section class="cat-section" data-cat="productivity">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(245,166,35,0.12);color:var(--gold)"><i class="fas fa-briefcase"></i></div>
+      <span class="cat-name">Productivity</span>
+      <span class="cat-count" data-countfor="productivity"></span>
     </div>
-
-    <div class="trust-banner">
-        <i class="fas fa-certificate"></i>
-        <span>Community Trusted — All apps verified by emy</span>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="libreoffice" data-desc="Full-featured office suite with word processor spreadsheet presentation tools and more.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.libreoffice.org" target="_blank">LibreOffice</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Complete office suite - Writer, Calc, Impress, Draw, Base, Math. The go-to Microsoft Office replacement for Linux and beyond.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.libreoffice.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="onlyoffice" data-desc="Modern office suite with strong Microsoft Office compatibility and real-time collaboration.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.onlyoffice.com" target="_blank">OnlyOffice</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Beautiful, modern office suite with excellent .docx/.xlsx/.pptx compatibility. Also supports real-time collaborative editing in the cloud edition.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://www.onlyoffice.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="freemium" data-name="notion" data-desc="All-in-one workspace for notes wikis databases and project management.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.notion.so" target="_blank">Notion</a></div>
+          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
+        </div>
+        <div class="tool-desc">Flexible all-in-one workspace combining notes, databases, kanban boards, and wikis. Excellent for individuals and teams. Free plan is generous.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://www.notion.so" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="free" data-name="obsidian" data-desc="Markdown-based knowledge base that works on local files perfect for note-taking.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://obsidian.md" target="_blank">Obsidian</a></div>
+          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
+        </div>
+        <div class="tool-desc">Powerful knowledge base using plain Markdown files. Backlinks, graph view, and a rich plugin ecosystem make it ideal for a second brain setup.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://obsidian.md" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="joplin" data-desc="Open source note-taking and to-do app with end-to-end encryption and sync.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://joplinapp.org" target="_blank">Joplin</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Privacy-focused Evernote alternative with E2E encryption, offline-first storage, and sync via Nextcloud, Dropbox, or OneDrive. Markdown support.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://joplinapp.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="logseq" data-desc="Privacy-first open-source knowledge base with outliner and graph view.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://logseq.com" target="_blank">Logseq</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Block-based outliner for daily journals and knowledge graphs. Data stored as plain Markdown/Org locally - you own everything. Great for Roam migrants.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://logseq.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="standard notes" data-desc="Encrypted notes app focused on longevity and privacy.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://standardnotes.com" target="_blank">Standard Notes</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">End-to-end encrypted notes with a 100-year promise - built to last. Clean interface with rich text and code editors. Strong privacy guarantees.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://standardnotes.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="freemium" data-name="todoist" data-desc="Elegant task manager with natural language input and cross-platform sync.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://todoist.com" target="_blank">Todoist</a></div>
+          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
+        </div>
+        <div class="tool-desc">Polished, powerful task manager with natural language due dates, labels, filters, and project views. Free tier handles most personal use cases well.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://todoist.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="super productivity" data-desc="To-do list and time-tracker with Jira and GitHub integration.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://super-productivity.com" target="_blank">Super Productivity</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Advanced to-do list with built-in time tracking, Pomodoro timer, and Jira/GitHub/GitLab integration. Stores data locally for full privacy.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://super-productivity.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="grid">
-        <div class="box" id="productivity">
-            <h3><i class="fas fa-briefcase"></i> Productivity</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> LibreOffice</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> OnlyOffice</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Notion</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="free"><a href="#"><i class="fas fa-link"></i> Obsidian</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Joplin</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Logseq</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Standard Notes</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="freemium" class="expandable"><a href="#"><i class="fas fa-link"></i> Todoist</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> SuperProductivity</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
-        </div>
-
-        <div class="box" id="development">
-            <h3><i class="fas fa-code"></i> Development</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> VS Code</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Git</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Postman</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Neovim</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-        </div>
-
-        <div class="box" id="design">
-            <h3><i class="fas fa-palette"></i> Design</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> GIMP</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Inkscape</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Blender</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Figma</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-        </div>
-
-        <div class="box" id="media">
-            <h3><i class="fas fa-play"></i> Media</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> VLC</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> OBS Studio</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Shotcut</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Audacity</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-        </div>
-
-        <div class="box" id="security">
-            <h3><i class="fas fa-shield-halved"></i> Security</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Bitwarden</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> KeePass</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> ClamAV</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> 1Password</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> VeraCrypt</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> KeePassXC</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> OpenVPN</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> WireGuard</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> GnuPG</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Cryptomator</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
-        </div>
-
-        <div class="box" id="chat">
-            <h3><i class="fas fa-message"></i> Chat</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Signal</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Element</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="freemium"><a href="#"><i class="fas fa-link"></i> Slack</a><div class="tags"><span class="tag freemium"><i class="fas fa-gem"></i> Freemium</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="free"><a href="#"><i class="fas fa-link"></i> Telegram</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-        </div>
-
-        <div class="box" id="files">
-            <h3><i class="fas fa-folder-open"></i> Files</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> 7-Zip</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="free"><a href="#"><i class="fas fa-link"></i> Everything</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> FileZilla</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> WinSCP</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-        </div>
-
-        <div class="box" id="utils">
-            <h3><i class="fas fa-screwdriver-wrench"></i> Utils</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> PowerToys</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="free"><a href="#"><i class="fas fa-link"></i> WizTree</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="free"><a href="#"><i class="fas fa-link"></i> AltDrag</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Sumatra PDF</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> BleachBit</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> HWiNFO</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="free" class="expandable"><a href="#"><i class="fas fa-link"></i> CPU-Z</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="free" class="expandable"><a href="#"><i class="fas fa-link"></i> GPU-Z</a><div class="tags"><span class="tag free"><i class="fas fa-gift"></i> Free</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Bulk Rename</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> AutoHotkey</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
-        </div>
-
-        <div class="box" id="linux">
-            <h3><i class="fas fa-terminal"></i> Linux</h3>
-            <ul>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Ubuntu</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Fedora</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Linux Mint</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Debian</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os"><a href="#"><i class="fas fa-link"></i> Arch Linux</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> CachyOS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Pop!_OS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> EndeavourOS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> openSUSE Tumbleweed</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> NixOS</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Garuda Linux</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-                <li data-license="os" class="expandable"><a href="#"><i class="fas fa-link"></i> Nobara</a><div class="tags"><span class="tag os"><i class="fas fa-code-branch"></i> OS</span><span class="verified-badge"><i class="fas fa-check"></i> verified by emy</span></div></li>
-            </ul>
-            <button class="view-more-btn"><i class="fas fa-chevron-down"></i> View More</button>
-        </div>
+  <section class="cat-section" data-cat="development">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(78,168,222,0.12);color:var(--blue)"><i class="fas fa-code"></i></div>
+      <span class="cat-name">Development</span>
+      <span class="cat-count" data-countfor="development"></span>
     </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="vs code visual studio code" data-desc="Lightweight but powerful code editor by Microsoft with massive extension library.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://code.visualstudio.com" target="_blank">VS Code</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">The world's most popular code editor. IntelliSense, Git integration, debugging, and 40,000+ extensions. Fast, lightweight, and cross-platform.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://code.visualstudio.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="neovim vim" data-desc="Hyperextensible Vim-based text editor built for speed and customization.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://neovim.io" target="_blank">Neovim</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Modern fork of Vim with Lua config, LSP support, and a thriving plugin ecosystem. Blazing fast once configured. Steep learning curve, massive payoff.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://neovim.io" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="git version control" data-desc="Distributed version control system the backbone of modern software development.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://git-scm.com" target="_blank">Git</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">The industry-standard version control system. Track changes, branch and merge, collaborate with teams. Essential for every developer's toolkit.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://git-scm.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="freemium" data-name="postman api" data-desc="API platform for building testing and documenting APIs.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.postman.com" target="_blank">Postman</a></div>
+          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
+        </div>
+        <div class="tool-desc">Industry-leading API client for testing REST, GraphQL, WebSocket, and more. Collections, environments, automated tests, and team collaboration.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://www.postman.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="hoppscotch api testing" data-desc="Lightweight open-source API testing tool a Postman alternative.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://hoppscotch.io" target="_blank">Hoppscotch</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Open-source API development ecosystem. Lightweight, fast, and web-first. Self-hostable alternative to Postman with a clean UI. No account required.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://hoppscotch.io" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="dbeaver database sql" data-desc="Universal database management tool for SQL and NoSQL databases.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://dbeaver.io" target="_blank">DBeaver</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Free universal database client supporting MySQL, PostgreSQL, SQLite, MongoDB, and 80+ more. Entity diagram, SQL editor, data export, and more.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://dbeaver.io" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="wezterm terminal" data-desc="GPU-accelerated terminal emulator with Lua configuration.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://wezfurlong.org/wezterm" target="_blank">WezTerm</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Powerful GPU-accelerated terminal emulator configured entirely in Lua. Multiplexer built-in, ligature support, and blazing fast rendering across all platforms.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://wezfurlong.org/wezterm" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="free" data-name="fork git client" data-desc="Fast and friendly Git client for Mac and Windows.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://git-fork.com" target="_blank">Fork</a></div>
+          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
+        </div>
+        <div class="tool-desc">Best-in-class GUI Git client. Beautiful diff viewer, cherry-pick, rebase, interactive rebase, stash management. Much faster than GitHub Desktop.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+          </div>
+          <a class="visit-btn" href="https://git-fork.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Category filter
-        const categoryButtons = document.querySelectorAll('.nav-link');
-        const boxes = document.querySelectorAll('.box');
-        let currentCategory = 'all';
+  <section class="cat-section" data-cat="design">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(183,125,255,0.12);color:var(--purple)"><i class="fas fa-palette"></i></div>
+      <span class="cat-name">Design</span>
+      <span class="cat-count" data-countfor="design"></span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="gimp image editor" data-desc="Powerful open-source image editor a free Photoshop alternative.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.gimp.org" target="_blank">GIMP</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">GNU Image Manipulation Program - the most capable free photo editor. Layer-based workflow, advanced masks, scripts, and a huge plugin library.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.gimp.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="inkscape vector graphics" data-desc="Professional vector graphics editor Illustrator alternative.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://inkscape.org" target="_blank">Inkscape</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Full-featured SVG vector editor with Bezier curves, text, shapes, and node editing. Excellent for logos, icons, and illustrations. SVG-native format.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://inkscape.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="blender 3d" data-desc="3D creation suite covering modeling rigging animation VFX and rendering.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.blender.org" target="_blank">Blender</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Industry-grade 3D suite used in Hollywood VFX. Modeling, sculpting, rigging, animation, physics simulation, compositing, and video editing all in one.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.blender.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="freemium" data-name="figma ui ux design" data-desc="Collaborative UI/UX design tool used by teams worldwide.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.figma.com" target="_blank">Figma</a></div>
+          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
+        </div>
+        <div class="tool-desc">Browser-based UI/UX design tool with real-time multiplayer collaboration. Component libraries, auto-layout, prototyping, and dev handoff. Free for personal use.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+          </div>
+          <a class="visit-btn" href="https://www.figma.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="penpot design ui" data-desc="Open-source design tool self-hostable Figma alternative.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://penpot.app" target="_blank">Penpot</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">The first open-source design and prototyping tool. Self-hostable, privacy-friendly Figma alternative with components, grids, and prototyping support.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://penpot.app" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="krita digital painting illustration" data-desc="Professional digital painting and illustration application.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://krita.org" target="_blank">Krita</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Made for digital artists - natural brush simulation, animation support, HDR painting, and a wide range of brush engines. Loved by concept artists and illustrators.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://krita.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        categoryButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.dataset.filter;
-                
-                if (filter === currentCategory && filter !== 'all') {
-                    currentCategory = 'all';
-                } else {
-                    currentCategory = filter;
-                }
-                
-                categoryButtons.forEach(b => b.classList.remove('active'));
-                if (currentCategory !== 'all') {
-                    document.querySelector(`.nav-link[data-filter="${currentCategory}"]`).classList.add('active');
-                } else {
-                    document.querySelector('.nav-link[data-filter="all"]').classList.add('active');
-                }
-                
-                applyFilters();
-            });
-        });
+  <section class="cat-section" data-cat="media">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(255,107,107,0.12);color:var(--red)"><i class="fas fa-play"></i></div>
+      <span class="cat-name">Media</span>
+      <span class="cat-count" data-countfor="media"></span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="vlc media player" data-desc="Versatile media player supporting virtually every audio and video format.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.videolan.org/vlc" target="_blank">VLC</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">The legendary media player. Plays every codec known to mankind without installing anything extra. Also streams, transcodes, and captures video.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://www.videolan.org/vlc" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="obs studio streaming recording" data-desc="Free streaming and screen recording software used by content creators worldwide.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://obsproject.com" target="_blank">OBS Studio</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">The gold standard for streaming and recording. Scenes, sources, transitions, audio mixing, and plugin ecosystem. Used by every major content creator.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://obsproject.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="audacity audio editor" data-desc="Multi-track audio editor and recorder for all platforms.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.audacityteam.org" target="_blank">Audacity</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Multi-track audio editor and recorder. Cut, copy, splice, mix. Supports VST plugins, noise reduction, compression, equalization. Free forever.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.audacityteam.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="kdenlive video editor" data-desc="Powerful non-linear video editor with professional timeline features.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://kdenlive.org" target="_blank">Kdenlive</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Feature-rich video editor from KDE. Multi-track timeline, keyframe animations, motion tracking, subtitles, and a comprehensive effects library.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://kdenlive.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="mpv player" data-desc="Minimalist scriptable media player with hardware decoding.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://mpv.io" target="_blank">mpv</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Minimalist media player for power users. GPU-accelerated video decoding, Lua scripting, shaders, and HDR support. No UI clutter - just playback perfection.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://mpv.io" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // License filter
-        const licenseButtons = document.querySelectorAll('.license-btn');
-        let currentLicense = 'all';
+  <section class="cat-section" data-cat="security">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(39,201,122,0.12);color:var(--green)"><i class="fas fa-shield-halved"></i></div>
+      <span class="cat-name">Security &amp; Privacy</span>
+      <span class="cat-count" data-countfor="security"></span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="bitwarden password manager" data-desc="Open-source password manager with cloud sync and self-hosting options.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://bitwarden.com" target="_blank">Bitwarden</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Best open-source password manager. AES-256 encryption, cross-platform sync, browser extensions, and self-hosting via Vaultwarden. Free forever.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://bitwarden.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="keepassxc password manager offline" data-desc="Modern offline-first password manager with strong encryption.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://keepassxc.org" target="_blank">KeePassXC</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Community fork of KeePass with a modern UI. Stores passwords locally in an AES-256 encrypted .kdbx file. No internet required. Maximum privacy.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://keepassxc.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="veracrypt encryption" data-desc="Disk encryption tool creating encrypted volumes and containers.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.veracrypt.fr" target="_blank">VeraCrypt</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Create encrypted containers and encrypt entire drives or partitions. Successor to TrueCrypt with enhanced security algorithms and plausible deniability.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.veracrypt.fr" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="wireguard vpn" data-desc="Fast modern VPN protocol designed for simplicity and performance.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.wireguard.com" target="_blank">WireGuard</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Modern VPN protocol praised by Linus Torvalds himself. Minimal attack surface, incredibly fast, and simple to configure. Now built into the Linux kernel.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://www.wireguard.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="gnupg gpg encryption signing" data-desc="Complete implementation of the OpenPGP standard for encryption and signing.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://gnupg.org" target="_blank">GnuPG (GPG)</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">GNU Privacy Guard - encrypt and sign files and emails using public-key cryptography. The backbone of secure communication on Linux and beyond.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://gnupg.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="cryptomator cloud encryption" data-desc="Client-side encryption for cloud files Dropbox Google Drive etc.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://cryptomator.org" target="_blank">Cryptomator</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Encrypt your cloud files before they leave your device. Works with Dropbox, Google Drive, iCloud, and any WebDAV storage. Zero-knowledge by design.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://cryptomator.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        licenseButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const license = btn.dataset.license;
-                
-                if (license === currentLicense && license !== 'all') {
-                    currentLicense = 'all';
-                } else {
-                    currentLicense = license;
-                }
-                
-                licenseButtons.forEach(b => b.classList.remove('active'));
-                if (currentLicense !== 'all') {
-                    document.querySelector(`.license-btn[data-license="${currentLicense}"]`).classList.add('active');
-                } else {
-                    document.querySelector('.license-btn[data-license="all"]').classList.add('active');
-                }
-                
-                applyFilters();
-            });
-        });
+  <section class="cat-section" data-cat="chat">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(245,166,35,0.12);color:var(--gold)"><i class="fas fa-message"></i></div>
+      <span class="cat-name">Communication</span>
+      <span class="cat-count" data-countfor="chat"></span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="signal messaging encrypted" data-desc="End-to-end encrypted messaging app the gold standard for private communication.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://signal.org" target="_blank">Signal</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Gold standard for private messaging. End-to-end encrypted calls and messages by default, disappearing messages, and no metadata collection.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://signal.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="element matrix decentralized chat" data-desc="Decentralized federated chat platform built on the Matrix protocol.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://element.io" target="_blank">Element (Matrix)</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Decentralized chat using the Matrix protocol. Self-host your server, federate with others, get E2E encryption, voice/video calls, and bridging to other platforms.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://element.io" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="free" data-name="telegram messaging" data-desc="Fast cloud-based messaging with bots channels and large group support.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://telegram.org" target="_blank">Telegram</a></div>
+          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
+        </div>
+        <div class="tool-desc">Lightning-fast cloud messaging with 200,000-member groups, bots, file sharing up to 4GB, and channels. Note: default chats aren't E2E encrypted.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://telegram.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="freemium" data-name="slack team communication" data-desc="Team messaging platform with channels threads and integrations.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://slack.com" target="_blank">Slack</a></div>
+          <div class="card-badges"><span class="badge freemium"><i class="fas fa-gem"></i> Freemium</span></div>
+        </div>
+        <div class="tool-desc">Industry-standard team communication. Channels, threads, huddles, 2,400+ integrations, and workflow automation. Free tier has 90-day message history.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fas fa-globe platform-icon" title="Web"></i>
+          </div>
+          <a class="visit-btn" href="https://slack.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="thunderbird email client mozilla" data-desc="Feature-rich open-source email client by Mozilla.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.thunderbird.net" target="_blank">Thunderbird</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Mozilla's powerful email client with a newly redesigned interface. Multiple accounts, calendar, task manager, PGP encryption, and add-on support. Free forever.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.thunderbird.net" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        function applyFilters() {
-            boxes.forEach(box => {
-                // Check category filter
-                const categoryMatch = currentCategory === 'all' || box.id === currentCategory;
-                
-                // Check license filter on items
-                const items = box.querySelectorAll('li');
-                let hasVisibleItems = false;
-                
-                items.forEach(item => {
-                    const itemLicense = item.dataset.license;
-                    const licenseMatch = currentLicense === 'all' || itemLicense === currentLicense;
-                    
-                    if (licenseMatch) {
-                        item.classList.remove('hidden');
-                        hasVisibleItems = true;
-                    } else {
-                        item.classList.add('hidden');
-                    }
-                });
-                
-                // Show/hide box based on category and whether it has visible items
-                if (categoryMatch && (currentLicense === 'all' || hasVisibleItems)) {
-                    box.classList.remove('hidden');
-                } else {
-                    box.classList.add('hidden');
-                }
-            });
-        }
+  <section class="cat-section" data-cat="files">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(78,168,222,0.12);color:var(--blue)"><i class="fas fa-folder-open"></i></div>
+      <span class="cat-name">File Management</span>
+      <span class="cat-count" data-countfor="files"></span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="7-zip archiver compression" data-desc="High-compression archiver supporting ZIP 7z RAR and dozens of other formats.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.7-zip.org" target="_blank">7-Zip</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Best compression ratio on the planet. Handles 7z, ZIP, RAR, TAR, GZIP, XZ, and more. CLI and GUI. The only archiver you'll ever need. Completely free.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.7-zip.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="free" data-name="everything search files windows" data-desc="Instant file search for Windows finds files as you type.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.voidtools.com" target="_blank">Everything</a></div>
+          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
+        </div>
+        <div class="tool-desc">Indexes every file on your Windows drive instantly. Search results appear as you type, no delays. Essential Windows productivity tool - replaces slow built-in search.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+          </div>
+          <a class="visit-btn" href="https://www.voidtools.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="filezilla ftp sftp" data-desc="FTP SFTP and FTPS client for transferring files to servers.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://filezilla-project.org" target="_blank">FileZilla</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Reliable FTP/SFTP/FTPS client with a dual-pane interface, queue management, site manager, and resume support. Available for all major platforms.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://filezilla-project.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="winscp sftp scp windows" data-desc="SCP and SFTP client for Windows with Explorer-like interface.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://winscp.net" target="_blank">WinSCP</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Windows-native SFTP, SCP, S3, and FTP client with a comfortable Explorer or Commander interface. Includes a built-in text editor and scripting support.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+          </div>
+          <a class="visit-btn" href="https://winscp.net" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="syncthing file sync" data-desc="Continuous file synchronization without cloud intermediaries.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://syncthing.net" target="_blank">Syncthing</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Sync files between your devices directly - no cloud needed. Encrypted peer-to-peer sync. Replace Dropbox/Google Drive with something you actually own.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://syncthing.net" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // View More functionality
-        const viewMoreButtons = document.querySelectorAll('.view-more-btn');
-        
-        viewMoreButtons.forEach(btn => {
-            const box = btn.closest('.box');
-            const expandableItems = box.querySelectorAll('li.expandable');
-            
-            // Hide button if no expandable items
-            if (expandableItems.length === 0) {
-                btn.style.display = 'none';
-            }
-            
-            btn.addEventListener('click', () => {
-                const isExpanded = btn.classList.contains('expanded');
-                
-                if (isExpanded) {
-                    // Collapse - hide expandable items
-                    expandableItems.forEach(item => {
-                        item.classList.remove('visible');
-                    });
-                    btn.classList.remove('expanded');
-                    btn.innerHTML = '<i class="fas fa-chevron-down"></i> View More';
-                } else {
-                    // Expand - show expandable items
-                    expandableItems.forEach(item => {
-                        item.classList.add('visible');
-                    });
-                    btn.classList.add('expanded');
-                    btn.innerHTML = '<i class="fas fa-chevron-up"></i> View Less';
-                }
-            });
-        });
-    </script>
+  <section class="cat-section" data-cat="utils">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(183,125,255,0.12);color:var(--purple)"><i class="fas fa-screwdriver-wrench"></i></div>
+      <span class="cat-name">Utilities</span>
+      <span class="cat-count" data-countfor="utils"></span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="powertoys windows utilities" data-desc="Windows power utilities including FancyZones PowerToys Run and more.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://github.com/microsoft/PowerToys" target="_blank">PowerToys</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Microsoft's power user toolkit: FancyZones window manager, PowerToys Run launcher, Color Picker, Image Resizer, Keyboard Manager, and 20+ more tools.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+          </div>
+          <a class="visit-btn" href="https://github.com/microsoft/PowerToys" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="free" data-name="wiztree disk usage analyzer" data-desc="Fastest disk usage analyzer for Windows similar to WinDirStat.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.diskanalyzer.com" target="_blank">WizTree</a></div>
+          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
+        </div>
+        <div class="tool-desc">Scans your entire drive in seconds using the MFT directly. Find out what's eating your disk space with a visual treemap. Way faster than WinDirStat.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+          </div>
+          <a class="visit-btn" href="https://www.diskanalyzer.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="sumatra pdf reader" data-desc="Fast minimal PDF viewer for Windows with ePub MOBI and CBZ support.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.sumatrapdfreader.org" target="_blank">Sumatra PDF</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Tiny, fast PDF reader that opens instantly. No installation needed. Also reads ePub, MOBI, XPS, DjVu, CBZ, and CBR. The antidote to bloated Adobe Reader.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+          </div>
+          <a class="visit-btn" href="https://www.sumatrapdfreader.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="bleachbit system cleaner privacy" data-desc="System cleaner and privacy tool delete junk files and browser history.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.bleachbit.org" target="_blank">BleachBit</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Open-source CCleaner alternative. Wipe cache, logs, temp files, browser history, and more. Shred files securely. Used by Hillary Clinton (yes, really).</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://www.bleachbit.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="autohotkey automation scripting" data-desc="Scripting language for automating repetitive tasks on Windows.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.autohotkey.com" target="_blank">AutoHotkey</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Automate anything on Windows. Create hotkeys, remap keys, write macros, build GUI apps. The most powerful free automation tool for Windows power users.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+          </div>
+          <a class="visit-btn" href="https://www.autohotkey.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="free" data-name="cpu-z hardware info processor" data-desc="Detailed CPU memory and motherboard information tool.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank">CPU-Z</a></div>
+          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
+        </div>
+        <div class="tool-desc">The definitive hardware info tool. CPU name, speed, architecture, cache sizes, memory timings, motherboard details - all displayed in real time. No install needed.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-android platform-icon" title="Android"></i>
+          </div>
+          <a class="visit-btn" href="https://www.cpuid.com/softwares/cpu-z.html" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="free" data-name="hwinfo hardware monitor temperature" data-desc="Real-time hardware monitoring for sensors temperatures and fan speeds.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.hwinfo.com" target="_blank">HWiNFO</a></div>
+          <div class="card-badges"><span class="badge free"><i class="fas fa-gift"></i> Freeware</span></div>
+        </div>
+        <div class="tool-desc">Comprehensive hardware diagnostics and real-time monitoring of sensors, temperatures, voltages, and fan speeds. The overclocker's best friend. Extremely detailed.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+          </div>
+          <a class="visit-btn" href="https://www.hwinfo.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="flameshot screenshot annotation" data-desc="Powerful screenshot tool with annotation blur and upload capabilities.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://flameshot.org" target="_blank">Flameshot</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Feature-rich screenshot tool with built-in annotation. Draw, highlight, blur, add text or arrows on screenshots. Upload directly to Imgur. Free and open source.</div>
+        <div class="card-footer">
+          <div class="platforms">
+            <i class="fab fa-windows platform-icon" title="Windows"></i>
+            <i class="fab fa-apple platform-icon" title="macOS"></i>
+            <i class="fab fa-linux platform-icon" title="Linux"></i>
+          </div>
+          <a class="visit-btn" href="https://flameshot.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cat-section" data-cat="linux">
+    <div class="cat-header">
+      <div class="cat-icon" style="background:rgba(245,166,35,0.12);color:var(--gold)"><i class="fab fa-linux"></i></div>
+      <span class="cat-name">Linux Distributions</span>
+      <span class="cat-count" data-countfor="linux"></span>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-card" data-license="os" data-name="ubuntu linux beginner" data-desc="The most popular Linux distribution great for beginners and servers alike.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://ubuntu.com" target="_blank">Ubuntu</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">World's most popular desktop Linux. Backed by Canonical, massive community, PPAs, snaps, and LTS releases with 5 years of support. Best starting point for new Linux users.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64 · ARM</span></div>
+          <a class="visit-btn" href="https://ubuntu.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="linux mint windows-like beginner" data-desc="Ubuntu-based distro optimized for ease of use and a Windows-like experience.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://linuxmint.com" target="_blank">Linux Mint</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">The friendliest Linux for Windows migrants. Cinnamon desktop feels immediately familiar. Stable, includes multimedia codecs out of the box. Community favorite.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64</span></div>
+          <a class="visit-btn" href="https://linuxmint.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="fedora linux gnome cutting-edge" data-desc="Cutting-edge Red Hat-backed distro with GNOME and Wayland defaults.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://fedoraproject.org" target="_blank">Fedora</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Bleeding-edge Linux backed by Red Hat. Ships the latest GNOME, kernel, and Wayland by default. Excellent hardware support, security focus, and frequent updates.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64 · ARM · RISC-V</span></div>
+          <a class="visit-btn" href="https://fedoraproject.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="arch linux rolling release aur" data-desc="Rolling release minimal KISS-philosophy distribution for power users.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://archlinux.org" target="_blank">Arch Linux</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Build your system from scratch. Rolling release with bleeding-edge packages, the legendary AUR repository, and the best Linux wiki on the internet.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64</span></div>
+          <a class="visit-btn" href="https://archlinux.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="debian linux stable server" data-desc="The universal OS rock solid 30 years old and the parent of Ubuntu.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://www.debian.org" target="_blank">Debian</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">The "universal operating system." Parent of Ubuntu and hundreds of other distros. Stable, reliable, and runs on virtually every architecture. Choice of servers worldwide.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86 · ARM · MIPS · more</span></div>
+          <a class="visit-btn" href="https://www.debian.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="nixos declarative reproducible" data-desc="Reproducible declarative Linux system configuration with Nix package manager.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://nixos.org" target="_blank">NixOS</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Declare your entire system in a config file and reproduce it anywhere. Atomic upgrades, rollbacks, 80,000+ packages in nixpkgs. The future of system management.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64 · ARM</span></div>
+          <a class="visit-btn" href="https://nixos.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="pop os system76 developer" data-desc="Ubuntu-based distro optimized for developers and creative professionals.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://pop.system76.com" target="_blank">Pop!_OS</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">System76's polished Ubuntu derivative with great NVIDIA support, auto-tiling window manager, and a focus on developer workflows. COSMIC desktop in development.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64</span></div>
+          <a class="visit-btn" href="https://pop.system76.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="cachyos performance gaming arch" data-desc="Arch-based distro optimized for performance with CachyOS kernel.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://cachyos.org" target="_blank">CachyOS</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Arch-based distro focused on maximum performance. Custom CachyOS kernel with BORE/EEVDF scheduler, optimized packages, and excellent out-of-box gaming experience.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64-v3 · x86_64</span></div>
+          <a class="visit-btn" href="https://cachyos.org" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+      <div class="tool-card" data-license="os" data-name="endeavouros arch linux friendly" data-desc="User-friendly Arch-based distro with a helpful community.">
+        <div class="card-top">
+          <div class="tool-name"><a href="https://endeavouros.com" target="_blank">EndeavourOS</a></div>
+          <div class="card-badges"><span class="badge os"><i class="fas fa-code-branch"></i> Open Source</span></div>
+        </div>
+        <div class="tool-desc">Near-vanilla Arch with a friendlier installer and welcoming community. Ships minimal, lets you choose your DE, and maintains access to the full AUR.</div>
+        <div class="card-footer">
+          <div class="platforms"><span style="font-size:0.62rem;color:var(--muted);font-family:'Geist Mono',monospace">x86_64 · ARM</span></div>
+          <a class="visit-btn" href="https://endeavouros.com" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Visit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="no-results" style="display:none; text-align:center; padding:4rem 2rem; color:var(--muted); font-family:'Geist Mono',monospace;">
+    <div style="font-size:2rem;margin-bottom:1rem;">◌</div>
+    <div style="font-size:1rem;margin-bottom:0.5rem;">No tools found</div>
+    <div style="font-size:0.8rem;color:var(--muted)">Try a different search term or filter</div>
+  </div>
+
+</main>
+
+<footer>
+  <div style="margin-bottom:0.5rem;">
+    <a href="https://github.com/dragonboe/Homelander" target="_blank"><i class="fab fa-github"></i> Homelander on GitHub</a>
+    &nbsp;·&nbsp; Community Verified by emy &nbsp;·&nbsp; Always Free &amp; Open
+  </div>
+  <div>No ads. No tracking. No sponsors. Just good software.</div>
+</footer>
+
+<script>
+const cards = document.querySelectorAll('.tool-card');
+const sections = document.querySelectorAll('.cat-section');
+const navBtns = document.querySelectorAll('.nav-btn');
+const licBtns = document.querySelectorAll('.lic-btn');
+const searchInput = document.getElementById('search');
+const searchCount = document.getElementById('search-count');
+const noResults = document.getElementById('no-results');
+
+let activeCategory = 'all';
+let activeLicense = 'all';
+let searchTerm = '';
+
+function applyFilters() {
+  let visibleCards = 0;
+
+  cards.forEach(card => {
+    const cardCat = card.closest('.cat-section').dataset.cat;
+    const cardLic = card.dataset.license;
+    const cardFullText = ((card.dataset.name || '') + ' ' + (card.dataset.desc || '') + ' ' + cardCat).toLowerCase();
+
+    const catMatch = activeCategory === 'all' || cardCat === activeCategory;
+    const licMatch = activeLicense === 'all' || cardLic === activeLicense;
+    const searchMatch = !searchTerm || cardFullText.includes(searchTerm.toLowerCase());
+
+    if (catMatch && licMatch && searchMatch) {
+      card.classList.remove('hidden');
+      visibleCards++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  sections.forEach(section => {
+    const catMatch = activeCategory === 'all' || section.dataset.cat === activeCategory;
+    const visibleInSection = section.querySelectorAll('.tool-card:not(.hidden)').length;
+    section.style.display = (catMatch && visibleInSection > 0) ? '' : 'none';
+  });
+
+  document.querySelectorAll('[data-countfor]').forEach(el => {
+    const cat = el.dataset.countfor;
+    const sec = document.querySelector('.cat-section[data-cat="' + cat + '"]');
+    if (sec) {
+      const visible = sec.querySelectorAll('.tool-card:not(.hidden)').length;
+      const total = sec.querySelectorAll('.tool-card').length;
+      el.textContent = visible + (visible !== total ? '/' + total : '') + ' tools';
+    }
+  });
+
+  searchCount.textContent = searchTerm ? (visibleCards + ' result' + (visibleCards !== 1 ? 's' : '')) : '';
+  noResults.style.display = visibleCards === 0 ? 'block' : 'none';
+}
+
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    navBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.filter;
+    applyFilters();
+  });
+});
+
+licBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    licBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeLicense = btn.dataset.license;
+    applyFilters();
+  });
+});
+
+let searchTimeout;
+searchInput.addEventListener('input', () => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    searchTerm = searchInput.value.trim();
+    applyFilters();
+  }, 120);
+});
+
+document.addEventListener('keydown', e => {
+  if ((e.key === '/' || e.key === 'f') && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+  if (e.key === 'Escape' && document.activeElement === searchInput) {
+    searchInput.value = '';
+    searchTerm = '';
+    searchInput.blur();
+    applyFilters();
+  }
+});
+
+applyFilters();
+document.getElementById('total-count').textContent = document.querySelectorAll('.tool-card').length + '+';
+</script>
 </body>
 </html>
